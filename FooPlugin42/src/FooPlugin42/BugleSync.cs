@@ -69,8 +69,12 @@ internal class BugleSync : MonoBehaviourPun
 
     private void Update()
     {
-        Plugin.Log.LogInfo("BugleSync updating");
-        foreach (var state in States.Values) UpdateBugleState(state);
+        foreach (var key in States.Keys)
+        {
+            var state = States[key];
+            UpdateBugleState(state);
+            States[key] = state;
+        }
     }
 
     [PunRPC]
