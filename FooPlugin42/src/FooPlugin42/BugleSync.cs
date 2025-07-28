@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace FooPlugin42;
 
-internal struct BugleState
+internal class BugleState
 {
-    public BugleSFX Bugle;
+    public BugleSFX? Bugle;
     public BuglePitchFrame LastFrame;
     public float? RemotePitch;
     public float SendTimer;
@@ -69,11 +69,18 @@ internal class BugleSync : MonoBehaviourPun
 
     private void Update()
     {
-        foreach (var key in States.Keys)
+        try
         {
-            var state = States[key];
-            UpdateBugleState(state);
-            States[key] = state;
+            Plugin.Log.LogInfo($"BugleSync Update {States.Values.Count}");
+            foreach (var state in States.Values)
+            {
+                Plugin.Log.LogInfo($"BugleSync updating {state}");
+                UpdateBugleState(state);
+            }
+        }
+        catch (Exception e)
+        {
+            Plugin.Log.LogInfo($"Exception occured: {e}");
         }
     }
 
