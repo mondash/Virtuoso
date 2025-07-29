@@ -1,99 +1,103 @@
-using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using FooPlugin42.BuglePitch;
+using Photon.Pun;
 using UnityEngine;
 
 namespace FooPlugin42;
 
-internal class BugleState
+internal class BugleSyncState
 {
-    public BugleSFX? Bugle;
     public BuglePitchFrame LastFrame;
-    public float? RemotePitch;
     public float SendTimer;
 }
 
-internal class BugleSync : MonoBehaviourPun
+internal class BugleSync: MonoBehaviourPun
 {
-    public static BugleSync? Instance;
-    private static readonly Dictionary<int, BugleState> States = new();
-    private const float SendInterval = 0.15f;
+    private static readonly Dictionary<int, BugleSyncState> States = new();
+    private const float SendInterval = 0.1f;
 
-    public static void AddInstance(BugleSFX bugle)
+    public static void EnsureSync(BugleSFX bugle)
     {
-        var id = bugle.photonView.ViewID;
-        var lastFrame = new BuglePitchFrame(bugle);
-        States[id] = new BugleState { Bugle = bugle, LastFrame = lastFrame };
+        var view = bugle.photonView;
+        if (!view) return;
+        // if (!view || !view.IsMine) return; // TODO All bugles should get a sync, right?
+        if (bugle.TryGetComponent<BugleSync>(out _)) return;
+        bugle.gameObject.AddComponent<BugleSync>();
+        Plugin.Log.LogInfo($"Attached BugleSync to BugleSFX for view {view.ViewID}");
     }
 
-    public static void RemoveInstance(BugleSFX bugle) =>
-        States.Remove(bugle.photonView.ViewID);
-
-    public static float? GetRemotePitch(int id) =>
-        States.GetValueOrDefault(id).RemotePitch;
-
-    public static IEnumerator WaitForSceneLoadAndInit(Plugin plugin)
+    private void Update()
     {
-        Plugin.Log.LogInfo("Waiting for scene to load...");
-        while (!Character.localCharacter) yield return null;
-        Plugin.Log.LogInfo("Scene loaded, initializing BugleSync");
-        Instance = plugin.gameObject.AddComponent<BugleSync>();
-        Plugin.Log.LogInfo("BugleSync initialized");
-    }
+        if (!photonView.IsMine) return;
+        // if (Time.timeScale == 0f) return; // TODO Should I include this here?
 
-    private void OnDestroy()
-    {
-        Instance = null;
-        Plugin.Log.LogInfo("BugleSync destroyed");
-    }
+        if (!TryGetComponent<BugleSFX>(out var bugle)) return;
+        if (!bugle.hold || !bugle.buglePlayer) return;
 
-    private void UpdateBugleState(BugleState state)
-    {
-        var bugle = state.Bugle;
-        if (!photonView.IsMine || !bugle || !bugle.buglePlayer || !bugle.hold) return;
+        var viewID = bugle.photonView.ViewID;
+
+        if (!States.TryGetValue(viewID, out var state))
+            States[viewID] = state = new BugleSyncState();
+
+        // TODO Should this happen before or after frame and does it matter?
+        state.SendTimer += Time.deltaTime;
 
         var frame = new BuglePitchFrame(bugle);
+        var withinSendInterval = state.SendTimer < SendInterval;
+        var pitchUnchanged = frame.Approximately(state.LastFrame);
 
-        var timeChanged = (state.SendTimer += Time.deltaTime) > SendInterval;
-        var pitchChanged = !frame.Approximately(state.LastFrame);
-        var shouldSync = timeChanged || pitchChanged;
-        if (!shouldSync) return;
+        if (withinSendInterval && pitchUnchanged) return;
 
-        var id = bugle.photonView.ViewID;
-        photonView.RPC("RPC_BugleSync", RpcTarget.Others, id, frame.Pitch, state.SendTimer);
+        // Apply pitch to local bugle
+        bugle.buglePlayer.pitch =  frame.Pitch;
+
+        // TODO Glide here?
+        // var current = bugle.buglePlayer.pitch;
+        // bugle.buglePlayer.pitch = BuglePitchMath.Glide(current, frame.Pitch, Time.deltaTime);
+
+        // Sync frame with other clients
+        SyncFrame(viewID, frame, state.SendTimer);
 
         state.LastFrame = frame;
         state.SendTimer = 0f;
     }
 
-    private void Update()
+    // TODO Proper serialization?
+    private void SyncFrame(int viewID, BuglePitchFrame frame, float delta)
     {
-        try
-        {
-            Plugin.Log.LogInfo($"BugleSync Update {States.Values.Count}");
-            foreach (var state in States.Values)
-            {
-                Plugin.Log.LogInfo($"BugleSync updating {state}");
-                UpdateBugleState(state);
-            }
-        }
-        catch (Exception e)
-        {
-            Plugin.Log.LogInfo($"Exception occured: {e}");
-        }
+        Plugin.Log.LogInfo($"Syncing frame with other clients");
+        const string rpc = nameof(RPC_SyncFrame);
+        photonView.RPC(rpc, RpcTarget.Others, viewID, frame.Valves, frame.Harmonic, frame.Bend, delta);
     }
 
     [PunRPC]
-    private void RPC_BugleSync(int id, float pitch, float delta)
+    private void RPC_SyncFrame(int viewID, int valves, float harmonic, float bend, float delta)
     {
-        var view = PhotonView.Find(id);
-        if (!view || !view.TryGetComponent<BugleSFX>(out var bugle)) return;
+        Plugin.Log.LogInfo($"Received frame update for view {viewID}");
+        // TODO Delete this
+        if (photonView.ViewID == viewID)
+        {
+            Plugin.Log.LogInfo("Caught own rpc");
+            return;
+        }
 
-        var state = States.GetValueOrDefault(id, new BugleState { Bugle = bugle });
-        state.RemotePitch = pitch;
+        var view = PhotonView.Find(viewID);
+        if (!view || !view.TryGetComponent<BugleSFX>(out var bugle)) return;
+        if (!bugle.buglePlayer || !bugle.hold) return;
+
+        var frame = new BuglePitchFrame(valves, harmonic, bend);
+
+        // Apply pitch received from remote
+        bugle.buglePlayer.pitch = frame.Pitch;
+
+        // TODO Glide here?
+        // var current = bugle.buglePlayer.pitch;
+        // bugle.buglePlayer.pitch = BuglePitchMath.Glide(current, frame.Pitch, delta);
+
+        if (!States.TryGetValue(viewID, out var state))
+            States[viewID] = state = new BugleSyncState();
+
+        state.LastFrame = frame;
         state.SendTimer = delta;
-        States[id] = state;
-        Plugin.Log.LogInfo($"Synced bugle {id} to {pitch}"); // TODO Delete
     }
 }
