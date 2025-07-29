@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace FooPlugin42;
 
-// TODO Handling multiple bugles?
+// TODO Does this handle multiple bugles?
 
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin

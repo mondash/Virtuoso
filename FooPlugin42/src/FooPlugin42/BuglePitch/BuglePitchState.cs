@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace FooPlugin42.BuglePitch;
 
+// TODO Should this and does this work for non-player bugles?
+
+// TODO Should this be a class?
 internal struct BuglePitchState
 {
     public float? InitialHorizontal;
