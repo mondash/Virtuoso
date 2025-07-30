@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using FooPlugin42.Data;
+using FooPlugin42.Input;
 using Photon.Pun;
 using UnityEngine;
 
+// TODO Might update this namespace
+// Not *exactly* just networking
 namespace FooPlugin42.Networking;
 
 internal class BugleSyncState
@@ -41,6 +44,9 @@ internal class BugleSync: MonoBehaviourPun
 
         // TODO Should this happen before or after frame and does it matter?
         state.SendTimer += Time.deltaTime;
+
+        // TODO Should probably move this to its own input behaviour
+        ViewAngle.SetSmoothVertical(bugle, Time.deltaTime);
 
         var frame = new BuglePitchFrame(bugle);
 

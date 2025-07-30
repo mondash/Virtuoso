@@ -21,18 +21,18 @@ public static class BuglePitchInput
 
     public static int HarmonicsCount => Harmonics.Length;
 
-    public static float GetHarmonic(BugleSFX instance)
+    public static float GetHarmonic(BugleSFX bugle)
     {
-        var smooth = BuglePitchStateManager.GetSmoothedVerticalAngle(instance);
+        var smooth = ViewAngle.GetSmoothVertical(bugle);
         var normalized = Mathf.InverseLerp(-MaxVerticalAngle, MaxVerticalAngle, smooth);
         var partial =  Mathf.FloorToInt(normalized * HarmonicsCount);
         var index = Mathf.Clamp(partial, 0, HarmonicsCount - 1);
         return Harmonics[index];
     }
 
-    public static float GetBend(BugleSFX instance)
+    public static float GetBend(BugleSFX bugle)
     {
-        var delta = BuglePitchStateManager.GetHorizontalDelta(instance);
+        var delta = ViewAngle.GetHorizontalDelta(bugle);
         var normalized = Mathf.Clamp(delta / MaxBendAngle, -1f, 1f);
         return normalized * MaxBendSemitones;
     }
