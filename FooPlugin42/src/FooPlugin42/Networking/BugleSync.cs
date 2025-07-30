@@ -46,9 +46,9 @@ internal class BugleSync: MonoBehaviourPun
 
         // Apply pitch to local bugle
         bugle.buglePlayer.pitch =  frame.Pitch;
-        // TODO Glide here?
+        // TODO Smooth here?
         // var current = bugle.buglePlayer.pitch;
-        // bugle.buglePlayer.pitch = frame.Glide(current, Time.deltaTime);
+        // bugle.buglePlayer.pitch = frame.Smooth(current, Time.deltaTime);
 
         var withinSendInterval = state.SendTimer < SendInterval;
         var pitchUnchanged = frame.Approximately(state.LastFrame);
@@ -83,9 +83,9 @@ internal class BugleSync: MonoBehaviourPun
 
         // Apply pitch received from remote
         bugle.buglePlayer.pitch = frame.Pitch;
-        // TODO Glide here?
+        // TODO Smooth here?
         // var current = bugle.buglePlayer.pitch;
-        // bugle.buglePlayer.pitch = frame.Glide(current, delta);
+        // bugle.buglePlayer.pitch = frame.Smooth(current, delta);
 
         if (!States.TryGetValue(viewID, out var state))
             States[viewID] = state = new BugleSyncState();

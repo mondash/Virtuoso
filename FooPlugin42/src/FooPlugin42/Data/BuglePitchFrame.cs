@@ -16,11 +16,12 @@ internal readonly struct BuglePitchFrame(int valves, float harmonic, float bend)
         ) { }
 
     public float Semitone => Valves + Harmonic + Bend;
-    public float Pitch => BuglePitchMath.ConvertToPitch(Semitone);
+    public float Pitch =>  Mathf.Pow(2f, Semitone / 12f);
     public bool Approximately(BuglePitchFrame other, float bendThreshold = 0.05f)
         => Valves == other.Valves
         && Mathf.Approximately(Harmonic, other.Harmonic)
         && Mathf.Abs(Bend - other.Bend) < bendThreshold;
 
-    public float Glide(float current, float delta) => BuglePitchMath.Glide(current, Pitch, delta);
+    public float Smooth(float initial, float delta, float speed = 64f) =>
+        Mathf.Lerp(initial, Pitch, delta * speed);
 }

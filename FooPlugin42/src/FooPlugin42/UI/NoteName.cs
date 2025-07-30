@@ -10,8 +10,6 @@ internal class NoteName
         "F#", "G", "G#", "A", "A#", "B"
     ];
 
-    public static string FromPitch(float pitch) => FromSemitone(BuglePitch.BuglePitchMath.ConvertToSemitone(pitch));
-
     // TODO Verify this
     public static string FromSemitone(float semitone)
     {
