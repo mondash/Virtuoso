@@ -48,7 +48,7 @@ internal class BugleSync: MonoBehaviourPun
         // TODO Should probably move this to its own input behaviour
         BuglePartial.Smooth(Time.deltaTime);
 
-        var frame = new BuglePitchFrame(bugle);
+        var frame = new BuglePitchFrame();
 
         // Apply pitch to local bugle
         bugle.buglePlayer.pitch = frame.Pitch;
