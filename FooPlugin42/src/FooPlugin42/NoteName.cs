@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FooPlugin42;
 
-public class NoteName
+internal class NoteName
 {
     private static readonly string[] NoteNames =
     [

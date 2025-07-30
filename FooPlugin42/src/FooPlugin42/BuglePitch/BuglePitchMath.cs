@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace FooPlugin42.BuglePitch;
 
 public static class BuglePitchMath

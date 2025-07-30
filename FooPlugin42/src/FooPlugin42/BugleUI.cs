@@ -1,4 +1,3 @@
-using System.Collections;
 using FooPlugin42.BuglePitch;
 using UnityEngine;
 
