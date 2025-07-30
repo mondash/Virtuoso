@@ -15,7 +15,7 @@ public static class BuglePitchInput
         24.00f, // +2 octaves (total)
         27.86f, // ~4 semitones
         31.02f, // ~3 semitones
-        33.69f, // ~3 semitones
+        33.69f, // ~4 semitones
         36.00f, // +3 octaves (total)
     ];
 
