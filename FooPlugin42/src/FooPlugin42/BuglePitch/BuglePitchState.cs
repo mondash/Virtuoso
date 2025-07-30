@@ -18,16 +18,12 @@ internal static class BuglePitchStateManager
     private const float SmoothStrength = 32f;
     private static readonly Dictionary<int, BuglePitchState> States = new();
 
-    public static void Remove(BugleSFX bugle) =>
-        States.Remove(bugle.photonView.ViewID);
-
-    private static BuglePitchState MaybeGetState(int id) =>
-        States.GetValueOrDefault(id);
+    public static void Remove(BugleSFX bugle) => States.Remove(bugle.photonView.ViewID);
 
     public static void SetInitialHorizontal(BugleSFX bugle)
     {
         var id = bugle.photonView.ViewID;
-        var state = MaybeGetState(id);
+        var state = States.GetValueOrDefault(id);
 
         state.InitialHorizontal = ViewAngle.Horizontal();
         States[id] = state;
@@ -39,7 +35,7 @@ internal static class BuglePitchStateManager
         var current = ViewAngle.Vertical();
 
         var id = bugle.photonView.ViewID;
-        var state = MaybeGetState(id);
+        var state = States.GetValueOrDefault(id);
 
         var smoothed = state.PreviousVertical is { } previous
             ? Mathf.Lerp(previous, current, Time.deltaTime * SmoothStrength)
@@ -56,7 +52,7 @@ internal static class BuglePitchStateManager
     public static float GetHorizontalDelta(BugleSFX bugle)
     {
         var id = bugle.photonView.ViewID;
-        var state = MaybeGetState(id);
+        var state = States.GetValueOrDefault(id);
         return state.InitialHorizontal is { } initial
             ? Mathf.DeltaAngle(initial, ViewAngle.Horizontal())
             : 0f;
