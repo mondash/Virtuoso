@@ -43,17 +43,16 @@ internal class BugleSync: MonoBehaviourPun
         state.SendTimer += Time.deltaTime;
 
         var frame = new BuglePitchFrame(bugle);
-        var withinSendInterval = state.SendTimer < SendInterval;
-        var pitchUnchanged = frame.Approximately(state.LastFrame);
-
-        if (withinSendInterval && pitchUnchanged) return;
 
         // Apply pitch to local bugle
         bugle.buglePlayer.pitch =  frame.Pitch;
-
         // TODO Glide here?
         // var current = bugle.buglePlayer.pitch;
-        // bugle.buglePlayer.pitch = BuglePitchMath.Glide(current, frame.Pitch, Time.deltaTime);
+        // bugle.buglePlayer.pitch = frame.Glide(current, Time.deltaTime);
+
+        var withinSendInterval = state.SendTimer < SendInterval;
+        var pitchUnchanged = frame.Approximately(state.LastFrame);
+        if (withinSendInterval && pitchUnchanged) return;
 
         // Sync frame with other clients
         SyncFrame(viewID, frame, state.SendTimer);
@@ -65,34 +64,28 @@ internal class BugleSync: MonoBehaviourPun
     // TODO BuglePitchFrame serialization?
     private void SyncFrame(int viewID, BuglePitchFrame frame, float delta)
     {
-        Plugin.Log.LogInfo($"Syncing frame with other clients");
         const string rpc = nameof(RPC_SyncFrame);
         photonView.RPC(rpc, RpcTarget.Others, viewID, frame.Valves, frame.Harmonic, frame.Bend, delta);
+        Plugin.Log.LogDebug($"Sent frame sync from view {viewID}");
     }
 
     [PunRPC]
     private void RPC_SyncFrame(int viewID, int valves, float harmonic, float bend, float delta)
     {
-        Plugin.Log.LogInfo($"Received frame update for view {viewID}");
-        // TODO Delete this
-        if (photonView.ViewID == viewID)
-        {
-            Plugin.Log.LogInfo("Caught own rpc");
-            return;
-        }
-
+        Plugin.Log.LogDebug($"Received frame sync from view {viewID}");
         var view = PhotonView.Find(viewID);
-        if (!view || !view.TryGetComponent<BugleSFX>(out var bugle)) return;
+        if (!view || view.IsMine) return;
+        if (!view.TryGetComponent<BugleSFX>(out var bugle)) return;
         if (!bugle.buglePlayer || !bugle.hold) return;
 
+        Plugin.Log.LogDebug($"Applying frame sync from view {viewID}");
         var frame = new BuglePitchFrame(valves, harmonic, bend);
 
         // Apply pitch received from remote
         bugle.buglePlayer.pitch = frame.Pitch;
-
         // TODO Glide here?
         // var current = bugle.buglePlayer.pitch;
-        // bugle.buglePlayer.pitch = BuglePitchMath.Glide(current, frame.Pitch, delta);
+        // bugle.buglePlayer.pitch = frame.Glide(current, delta);
 
         if (!States.TryGetValue(viewID, out var state))
             States[viewID] = state = new BugleSyncState();
