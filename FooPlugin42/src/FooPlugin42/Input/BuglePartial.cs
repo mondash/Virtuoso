@@ -7,7 +7,6 @@ internal static class BuglePartial
     private const bool Ideal = false; // TODO Make configurable
     public const float MaxAngle = 90f;
     private const float SmoothStrength = 32f;
-    // TODO Option for realistic vs quantized?
     private static readonly float[] RealisticHarmonics =
     [
         // 0.00f, // Fundamental // TODO Undo?

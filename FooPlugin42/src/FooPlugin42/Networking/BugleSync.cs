@@ -29,6 +29,11 @@ internal class BugleSync: MonoBehaviourPun
         Plugin.Log.LogInfo($"Attached BugleSync to BugleSFX for view {view.ViewID}");
     }
 
+    private static BugleSyncState LoadState(int viewID) =>
+        States.TryGetValue(viewID, out var state)
+            ? state
+            : States[viewID] = new BugleSyncState();
+
     private void Update()
     {
         if (!photonView.IsMine) return;
@@ -38,9 +43,7 @@ internal class BugleSync: MonoBehaviourPun
         if (!bugle.hold || !bugle.buglePlayer) return;
 
         var viewID = bugle.photonView.ViewID;
-
-        if (!States.TryGetValue(viewID, out var state))
-            States[viewID] = state = new BugleSyncState();
+        var state = LoadState(viewID);
 
         // TODO Should this happen before or after frame and does it matter?
         state.SendTimer += Time.deltaTime;
@@ -87,15 +90,15 @@ internal class BugleSync: MonoBehaviourPun
         Plugin.Log.LogDebug($"Applying frame sync from view {viewID}");
         var frame = new BuglePitchFrame(valves, partial, bend);
 
+        // TODO Handle frame based smoothing for local instances of remote bugles
         // Apply pitch received from remote
         bugle.buglePlayer.pitch = frame.Pitch;
         // TODO Smooth here?
         // var current = bugle.buglePlayer.pitch;
         // bugle.buglePlayer.pitch = frame.Smooth(current, delta);
 
-        if (!States.TryGetValue(viewID, out var state))
-            States[viewID] = state = new BugleSyncState();
-
+        // TODO Currently this is useless
+        var state = LoadState(viewID);
         state.LastFrame = frame;
         state.SendTimer = delta;
     }
