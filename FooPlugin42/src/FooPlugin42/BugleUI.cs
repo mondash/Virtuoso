@@ -8,12 +8,10 @@ internal class BugleUI : MonoBehaviour
 {
     public static BugleUI? Instance;
 
-    public static IEnumerator WaitForSceneLoadAndInit(Plugin plugin)
+    public static void Initialize(GameObject gameObject)
     {
-        Plugin.Log.LogInfo("Waiting for scene to load...");
-        while (!Character.localCharacter) yield return null;
-        Plugin.Log.LogInfo("Scene loaded, initializing BugleUI");
-        Instance = plugin.gameObject.AddComponent<BugleUI>();
+        if (Instance) return;
+        Instance = gameObject.AddComponent<BugleUI>();
         Plugin.Log.LogInfo("BugleUI initialized");
     }
 
