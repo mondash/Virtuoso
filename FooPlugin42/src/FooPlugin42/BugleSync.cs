@@ -14,7 +14,7 @@ internal class BugleSyncState
 internal class BugleSync: MonoBehaviourPun
 {
     private static readonly Dictionary<int, BugleSyncState> States = new();
-    private const float SendInterval = 0.1f;
+    private const float SendInterval = 0.1f; // TODO Determine good default and maybe make configurable
 
     public static void EnsureSync(BugleSFX bugle)
     {
@@ -62,7 +62,7 @@ internal class BugleSync: MonoBehaviourPun
         state.SendTimer = 0f;
     }
 
-    // TODO Proper serialization?
+    // TODO BuglePitchFrame serialization?
     private void SyncFrame(int viewID, BuglePitchFrame frame, float delta)
     {
         Plugin.Log.LogInfo($"Syncing frame with other clients");

@@ -4,6 +4,7 @@ using UnityEngine;
 namespace FooPlugin42.BuglePitch;
 
 // TODO Should this and does this work for non-player bugles?
+// I don't think it's necessary for non-player bugles
 
 // TODO Should this be a class?
 internal struct BuglePitchState
@@ -51,6 +52,7 @@ internal static class BuglePitchStateManager
         return smoothed;
     }
 
+    // TODO Does not work if you spin too far
     public static float GetHorizontalDelta(BugleSFX bugle)
     {
         var id = bugle.photonView.ViewID;

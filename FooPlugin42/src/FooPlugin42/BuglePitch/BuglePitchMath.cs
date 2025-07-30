@@ -3,7 +3,6 @@ namespace FooPlugin42.BuglePitch;
 
 public static class BuglePitchMath
 {
-    // TODO Should I make this a method on BuglePitchFrame?
     public static float Glide(float current, float target, float delta, float speed = 64f) =>
         Mathf.Lerp(current, target, delta * speed);
 
