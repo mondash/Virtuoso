@@ -36,5 +36,6 @@ internal static class BugleSFX_Patch
     private static void RPC_EndToot_Postfix(BugleSFX __instance)
     {
         BugleBend.Reset();
+        BuglePartial.Reset();
     }
 }
