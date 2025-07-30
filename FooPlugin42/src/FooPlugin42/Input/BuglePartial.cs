@@ -34,7 +34,7 @@ internal static class BuglePartial
     ];
     private static float? _smoothAngle;
 
-    private static float[] Harmonics => Ideal ? IdealHarmonics :RealisticHarmonics;
+    private static float[] Harmonics => Ideal ? IdealHarmonics : RealisticHarmonics;
     public static int Partials => Harmonics.Length;
 
     private static float CurrentAngle =>
@@ -42,11 +42,11 @@ internal static class BuglePartial
 
     public static float Semitones()
     {
-        if (!_smoothAngle.HasValue) return RealisticHarmonics[0];
+        if (!_smoothAngle.HasValue) return Harmonics[0];
         var normalized = Mathf.InverseLerp(-MaxAngle, MaxAngle, _smoothAngle.Value);
         var scaled = Mathf.FloorToInt(normalized * Partials);
         var index = Mathf.Clamp(scaled, 0, Partials - 1);
-        return RealisticHarmonics[index];
+        return Harmonics[index];
     }
 
     public static void Reset() => _smoothAngle = null;
