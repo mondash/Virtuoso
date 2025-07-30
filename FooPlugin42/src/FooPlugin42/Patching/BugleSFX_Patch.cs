@@ -12,7 +12,7 @@ internal static class BugleSFX_Patch
     [HarmonyPostfix]
     private static void RPC_StartToot_Postfix(BugleSFX __instance, int clip)
     {
-        ViewAngle.SetInitialHorizontal(__instance);
+        BugleBend.SetInitialAngle();
 
         var audioSource = __instance.buglePlayer;
         if (!audioSource) return;
@@ -35,6 +35,6 @@ internal static class BugleSFX_Patch
     [HarmonyPostfix]
     private static void RPC_EndToot_Postfix(BugleSFX __instance)
     {
-        ViewAngle.Remove(__instance);
+        BugleBend.Reset();
     }
 }

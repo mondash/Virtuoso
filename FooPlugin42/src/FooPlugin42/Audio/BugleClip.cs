@@ -6,7 +6,7 @@ internal static class BugleClip
 {
     private static AudioClip? _clip;
 
-    public static AudioClip Brass(float frequency =  58.27f /* Bb1 */)
+    public static AudioClip Brass(float frequency = 58.27f /* Bb1 */)
     {
         if (_clip) return _clip;
 

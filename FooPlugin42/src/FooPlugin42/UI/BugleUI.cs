@@ -22,24 +22,22 @@ internal class BugleUI : MonoBehaviour
 
     private void OnGUI()
     {
-        var cam = Camera.main;
-        if (!cam) return;
-
         var character = Character.localCharacter;
         if (!character) return;
 
         var currentItem = character.data.currentItem;
-        if (!currentItem) return;
+        if (!currentItem || !currentItem.TryGetComponent<BugleSFX>(out _)) return;
 
-        var bugle = currentItem.GetComponent<BugleSFX>();
-        if (!bugle) return;
+        // TODO Cache camera?
+        var cam = Camera.main;
+        if (!cam) return;
 
         const float lineLength = 20f;
-        const float maxAngle = BuglePitchInput.MaxVerticalAngle;
-        var partials = BuglePitchInput.HarmonicsCount;
+        const float maxAngle = BuglePartial.MaxAngle;
+        var partials = BuglePartial.Partials;
         var divisions = partials - 1;
 
-        var verticalView = ViewAngle.Vertical();
+        var verticalAngle = character.data.lookValues.y;
         var fovDeg = cam.fieldOfView;
         var halfFovRad = fovDeg * 0.5f * Mathf.Deg2Rad;
         float screenHeight = Screen.height;
@@ -51,7 +49,7 @@ internal class BugleUI : MonoBehaviour
             var percent = (float)i / partials;
             var angle = Mathf.Lerp(-maxAngle, maxAngle, percent);
 
-            var angleDiff = angle - verticalView;
+            var angleDiff = angle - verticalAngle;
             var angleDiffRad = angleDiff * Mathf.Deg2Rad;
 
             // If outside of vertical FOV, skip

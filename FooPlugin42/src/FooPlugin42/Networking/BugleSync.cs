@@ -46,12 +46,12 @@ internal class BugleSync: MonoBehaviourPun
         state.SendTimer += Time.deltaTime;
 
         // TODO Should probably move this to its own input behaviour
-        ViewAngle.SetSmoothVertical(bugle, Time.deltaTime);
+        BuglePartial.Smooth(Time.deltaTime);
 
         var frame = new BuglePitchFrame(bugle);
 
         // Apply pitch to local bugle
-        bugle.buglePlayer.pitch =  frame.Pitch;
+        bugle.buglePlayer.pitch = frame.Pitch;
         // TODO Smooth here?
         // var current = bugle.buglePlayer.pitch;
         // bugle.buglePlayer.pitch = frame.Smooth(current, Time.deltaTime);
@@ -71,12 +71,12 @@ internal class BugleSync: MonoBehaviourPun
     private void SyncFrame(int viewID, BuglePitchFrame frame, float delta)
     {
         const string rpc = nameof(RPC_SyncFrame);
-        photonView.RPC(rpc, RpcTarget.Others, viewID, frame.Valves, frame.Harmonic, frame.Bend, delta);
+        photonView.RPC(rpc, RpcTarget.Others, viewID, frame.Valves, frame.Partial, frame.Bend, delta);
         Plugin.Log.LogDebug($"Sent frame sync from view {viewID}");
     }
 
     [PunRPC]
-    private void RPC_SyncFrame(int viewID, int valves, float harmonic, float bend, float delta)
+    private void RPC_SyncFrame(int viewID, float valves, float partial, float bend, float delta)
     {
         Plugin.Log.LogDebug($"Received frame sync from view {viewID}");
         var view = PhotonView.Find(viewID);
@@ -85,7 +85,7 @@ internal class BugleSync: MonoBehaviourPun
         if (!bugle.buglePlayer || !bugle.hold) return;
 
         Plugin.Log.LogDebug($"Applying frame sync from view {viewID}");
-        var frame = new BuglePitchFrame(valves, harmonic, bend);
+        var frame = new BuglePitchFrame(valves, partial, bend);
 
         // Apply pitch received from remote
         bugle.buglePlayer.pitch = frame.Pitch;
