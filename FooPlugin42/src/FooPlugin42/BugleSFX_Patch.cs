@@ -11,10 +11,10 @@ internal static class BugleSFX_Patch
     [HarmonyPostfix]
     private static void RPC_StartToot_Postfix(BugleSFX __instance, int clip)
     {
+        BuglePitchStateManager.SetInitialHorizontal(__instance);
+
         var audioSource = __instance.buglePlayer;
         if (!audioSource) return;
-
-        BuglePitchStateManager.SetInitialHorizontal(__instance);
 
         // Patch in custom sound
         audioSource.clip = BugleClip.Brass();
