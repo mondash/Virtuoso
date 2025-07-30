@@ -21,4 +21,6 @@ internal readonly struct BuglePitchFrame(int valves, float harmonic, float bend)
         => Valves == other.Valves
         && Mathf.Approximately(Harmonic, other.Harmonic)
         && Mathf.Abs(Bend - other.Bend) < bendThreshold;
+
+    public float Glide(float current, float delta) => BuglePitchMath.Glide(current, Pitch, delta);
 }
