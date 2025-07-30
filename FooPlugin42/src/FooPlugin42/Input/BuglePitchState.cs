@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FooPlugin42.BuglePitch;
+namespace FooPlugin42.Input;
 
 // TODO Should this and does this work for non-player bugles?
 // I don't think it's necessary for non-player bugles

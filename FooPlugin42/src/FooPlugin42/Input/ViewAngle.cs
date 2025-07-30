@@ -1,4 +1,4 @@
-namespace FooPlugin42;
+namespace FooPlugin42.Input;
 
 internal static class ViewAngle
 {

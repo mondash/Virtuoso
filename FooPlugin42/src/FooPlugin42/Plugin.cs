@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using BepInEx;
 using BepInEx.Logging;
+using FooPlugin42.Networking;
+using FooPlugin42.UI;
 using HarmonyLib;
 using UnityEngine;
 

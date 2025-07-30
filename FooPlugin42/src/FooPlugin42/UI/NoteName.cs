@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FooPlugin42;
+namespace FooPlugin42.UI;
 
 internal class NoteName
 {

@@ -1,7 +1,7 @@
-using FooPlugin42.BuglePitch;
+using FooPlugin42.Input;
 using UnityEngine;
 
-namespace FooPlugin42;
+namespace FooPlugin42.UI;
 
 internal class BugleUI : MonoBehaviour
 {

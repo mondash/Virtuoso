@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using FooPlugin42.BuglePitch;
+using FooPlugin42.Data;
 using Photon.Pun;
 using UnityEngine;
 
-namespace FooPlugin42;
+namespace FooPlugin42.Networking;
 
 internal class BugleSyncState
 {

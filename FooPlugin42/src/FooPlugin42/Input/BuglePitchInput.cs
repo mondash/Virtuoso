@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FooPlugin42.BuglePitch;
+namespace FooPlugin42.Input;
 
 public static class BuglePitchInput
 {

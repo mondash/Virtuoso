@@ -1,8 +1,9 @@
 using System.Reflection;
-using FooPlugin42.BuglePitch;
+using FooPlugin42.Audio;
+using FooPlugin42.Input;
 using HarmonyLib;
 
-namespace FooPlugin42;
+namespace FooPlugin42.Patching;
 
 [HarmonyPatch(typeof(BugleSFX))]
 internal static class BugleSFX_Patch

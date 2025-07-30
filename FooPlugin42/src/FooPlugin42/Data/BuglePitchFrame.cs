@@ -1,6 +1,7 @@
+using FooPlugin42.Input;
 using UnityEngine;
 
-namespace FooPlugin42.BuglePitch;
+namespace FooPlugin42.Data;
 
 internal readonly struct BuglePitchFrame(int valves, float harmonic, float bend)
 {
