@@ -10,11 +10,12 @@ internal readonly struct BuglePitchFrame(float valves, float partial, float bend
     public readonly float Bend = bend;
 
     public BuglePitchFrame() :
-        this(
-            TrumpetValves.Semitones(),
-            BuglePartial.Semitones(),
-            BugleBend.Semitones()
-        ) { }
+        this(TrumpetValves.Semitones(), BuglePartial.Semitones(), BugleBend.Semitones()) { }
+
+    public BuglePitchFrame(object[] data) :
+        this((float)data[0], (float)data[1], (float)data[2]) { }
+
+    public object[] Data => [Valves, Partial, Bend];
 
     public float Semitone => Valves + Partial + Bend;
 

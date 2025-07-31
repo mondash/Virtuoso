@@ -44,6 +44,7 @@ internal static class BuglePartial
         if (!_smoothAngle.HasValue) return Harmonics[0];
         var normalized = Mathf.InverseLerp(-MaxAngle, MaxAngle, _smoothAngle.Value);
         var scaled = Mathf.FloorToInt(normalized * Partials);
+        // TODO Do I need this clamp? InverseLerp should return [0,1] so need to double check
         var index = Mathf.Clamp(scaled, 0, Partials - 1);
         return Harmonics[index];
     }

@@ -14,7 +14,8 @@ namespace FooPlugin42;
 public partial class Plugin : BaseUnityPlugin
 {
     internal static ManualLogSource Log { get; private set; } = null!;
-    private const float BugleConnectPollInterval = 1f;
+    private const float BugleSyncRoutineInterval = 1f;
+    private const float BugleUIRoutineInterval = 1f;
     private static Plugin? _instance; // TODO Would prefer to delete
     private Coroutine? _bugleSyncRoutine;
     private Coroutine? _bugleUIRoutine;
@@ -38,9 +39,8 @@ public partial class Plugin : BaseUnityPlugin
         Log.LogInfo("Bugle sync routine starting...");
         while (_instance)
         {
-            var bugles = FindObjectsByType<BugleSFX>(FindObjectsSortMode.None);
-            foreach (var bugle in bugles) BugleSync.EnsureSync(bugle);
-            yield return new WaitForSeconds(BugleConnectPollInterval);
+            BugleSync.Connect();
+            yield return new WaitForSeconds(BugleSyncRoutineInterval);
         }
         Log.LogInfo("Bugle sync routine finished");
     }
@@ -48,8 +48,9 @@ public partial class Plugin : BaseUnityPlugin
     private static IEnumerator BugleUIRoutine()
     {
         Log.LogInfo("Bugle UI routine starting...");
-        while (!_instance || !Character.localCharacter) yield return null;
-        BugleUI.Initialize(_instance.gameObject);
+        while (_instance && !Character.localCharacter)
+            yield return new WaitForSeconds(BugleUIRoutineInterval);
+        if (_instance) BugleUI.Initialize(_instance.gameObject);
         Log.LogInfo("Bugle UI routine finished");
     }
 
@@ -58,9 +59,11 @@ public partial class Plugin : BaseUnityPlugin
         Log.LogInfo("Plugin destroying...");
         _instance = null;
         Log.LogInfo("Stopping coroutines...");
+        // TODO Does this prevent the coroutines from finishing smoothly?
         if (_bugleUIRoutine != null) StopCoroutine(_bugleUIRoutine);
         if (_bugleSyncRoutine != null) StopCoroutine(_bugleSyncRoutine);
-        Destroy(BugleUI.Instance); // TODO Do I need to call this directly?
+        BugleUI.DestroyInstance();
+        BugleSync.Disconnect();
         Log.LogInfo("Removing harmony patches...");
         _harmony?.UnpatchSelf();
         Log.LogInfo("Plugin destroyed!");

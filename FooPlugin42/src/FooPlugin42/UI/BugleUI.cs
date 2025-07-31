@@ -3,20 +3,24 @@ using UnityEngine;
 
 namespace FooPlugin42.UI;
 
+// TODO Leave guide lines at initial bend horizontal?
+
 internal class BugleUI : MonoBehaviour
 {
-    public static BugleUI? Instance;
+    private static BugleUI? _instance;
 
     public static void Initialize(GameObject gameObject)
     {
-        if (Instance) return;
-        Instance = gameObject.AddComponent<BugleUI>();
+        if (_instance) return;
+        _instance = gameObject.AddComponent<BugleUI>();
         Plugin.Log.LogInfo("BugleUI initialized");
     }
 
-    private void OnDestroy()
+    public static void DestroyInstance()
     {
-        Instance = null;
+        if (!_instance) return;
+        Destroy(_instance);
+        _instance = null;
         Plugin.Log.LogInfo("BugleUI destroyed");
     }
 
