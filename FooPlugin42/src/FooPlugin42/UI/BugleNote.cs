@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FooPlugin42.UI;
 
-internal class NoteName
+internal class BugleNote
 {
     private static readonly string[] NoteNames =
     [

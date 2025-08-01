@@ -9,6 +9,7 @@ public static class BugleBend
     private static float? _initialAngle;
 
     private static float CurrentAngle =>
+        // TODO Is this paranoid? Should I even bother checking?
         Character.localCharacter ? Character.localCharacter.data.lookValues.x : 0f;
 
     public static float Semitones()

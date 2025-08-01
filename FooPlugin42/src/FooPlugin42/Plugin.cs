@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Logging;
 using FooPlugin42.Runtime;
 using HarmonyLib;
 
 namespace FooPlugin42;
 
-// TODO Does this handle multiple bugles?
+// TODO Does this handle multiple local bugles?
 
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
@@ -17,10 +16,10 @@ public partial class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Log = Logger;
-        Log.LogInfo("Plugin waking...");
-        Log.LogInfo("Applying harmony patches...");
+        Log.LogDebug("Plugin waking...");
+        Log.LogDebug("Applying harmony patches...");
         (_harmony = new Harmony(Info.Metadata.GUID)).PatchAll();
-        Log.LogInfo("Adding runtime components...");
+        Log.LogDebug("Adding runtime components...");
         gameObject.AddComponent<BugleConnector>();
         gameObject.AddComponent<BugleUILoader>();
         Log.LogInfo("Plugin awake!");
@@ -28,8 +27,8 @@ public partial class Plugin : BaseUnityPlugin
 
     private void OnDestroy()
     {
-        Log.LogInfo("Plugin destroying...");
-        Log.LogInfo("Removing harmony patches...");
+        Log.LogDebug("Plugin destroying...");
+        Log.LogDebug("Removing harmony patches...");
         _harmony?.UnpatchSelf();
         Log.LogInfo("Plugin destroyed!");
     }

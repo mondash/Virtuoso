@@ -81,14 +81,14 @@ internal class BugleSync: MonoBehaviourPun
 
         if (withinSendInterval && pitchUnchanged) return;
 
-        photonView.RPC(nameof(RPC_SyncFrame), RpcTarget.Others, viewID, frame.Data);
+        photonView.RPC(nameof(RPC_SyncBuglePitchFrame), RpcTarget.Others, viewID, frame.Data);
         Plugin.Log.LogDebug($"Sent frame sync from view {viewID}");
 
         state.SendTimer = 0f;
     }
 
     [PunRPC]
-    private void RPC_SyncFrame(int viewID, object[] data)
+    private void RPC_SyncBuglePitchFrame(int viewID, object[] data)
     {
         Plugin.Log.LogDebug($"Received frame sync from view {viewID}");
         var view = PhotonView.Find(viewID);
