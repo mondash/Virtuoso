@@ -53,11 +53,11 @@ internal class BugleSync: MonoBehaviourPun
 
     private void Update()
     {
+        if (Time.timeScale == 0f) return; // TODO Should I include this here (or anywhere)?
+
         var viewID = photonView.ViewID;
         var state = LoadState(viewID);
         state.SendTimer += Time.deltaTime;
-
-        // if (Time.timeScale == 0f) return; // TODO Should I include this here (or anywhere)?
 
         // Discard state of inactive bugle
         if (!TryGetComponent<BugleSFX>(out var bugle) || !bugle.hold || !bugle.buglePlayer)
@@ -66,6 +66,7 @@ internal class BugleSync: MonoBehaviourPun
             return;
         }
 
+        // TODO Move this into BugleSFX Update Postfix?
         // TODO Smoothing isn't working properly on remote update
         bugle.buglePlayer.pitch = state.Frame.Pitch;
         // bugle.buglePlayer.pitch = state.Frame.Smooth(bugle.buglePlayer.pitch, Time.deltaTime);

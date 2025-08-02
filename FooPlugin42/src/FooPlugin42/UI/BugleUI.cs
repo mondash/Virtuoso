@@ -32,9 +32,11 @@ internal class BugleUI : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown(ToggleUIKey)) _visible = !_visible;
     }
 
+    private static bool IsPaused => GUIManager.instance.pauseMenu.isOpen;
+
     private void OnGUI()
     {
-        if (!_visible) return;
+        if (!_visible || IsPaused) return;
 
         var character = Character.localCharacter;
         if (!character) return;
