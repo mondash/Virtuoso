@@ -18,7 +18,7 @@ internal static class BugleSFX_Patch
         if (!audioSource) return;
 
         // Patch in custom sound
-        audioSource.clip = BugleClip.Brass();
+        audioSource.clip = BugleClip.Pinched();
         // audioSource.pitch = new BuglePitchFrame(__instance).Pitch; // TODO Do I actually need this?
         audioSource.loop = true; // TODO Synthesis without looping, involves updated sync behaviour
         audioSource.volume = 0f;
@@ -35,6 +35,7 @@ internal static class BugleSFX_Patch
     [HarmonyPostfix]
     private static void RPC_EndToot_Postfix(BugleSFX __instance)
     {
+        if (!__instance.photonView.IsMine) return; // TODO Paranoid?
         BugleBend.Reset();
         BuglePartial.Reset();
     }

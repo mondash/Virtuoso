@@ -53,7 +53,7 @@ internal static class BugleConfig
         MaxBendAngle = config.Bind(
             "Bend",
             "MaxBendAngle",
-            90f,
+            80f,
             "Maximum left/right view angle (in degrees) allowed to bend pitch"
         );
         MaxBendSemitones = config.Bind(
@@ -66,20 +66,20 @@ internal static class BugleConfig
         UseIdealHarmonics = config.Bind(
             "Harmonics",
             "UseIdealHarmonics",
-            false,
+            true,
             "If true, uses mathematically ideal harmonics"
         );
         MaxPartialAngle = config.Bind(
             "Harmonics",
             "MaxPartialAngle",
-            90f,
+            80f,
             "Vertical angle span (in degrees) allocated to partial selection"
         );
 
         UseIdealValves = config.Bind(
             "Valves",
             "UseIdealValves",
-            false,
+            true,
             "If true, uses mathematically ideal tuning offsets for valve combinations"
         );
         Valve1Key = config.Bind(
