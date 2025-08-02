@@ -13,13 +13,13 @@ namespace FooPlugin42.Networking;
 internal class BugleSyncState
 {
     public BuglePitchFrame Frame;
-    public float SendTimer;
+    public float Age;
 }
 
 internal class BugleSync: MonoBehaviourPun
 {
     private static readonly Dictionary<int, BugleSyncState> States = new();
-    private static float SendInterval => BugleConfig.SyncInterval.Value;
+    private static float SyncInterval => BugleConfig.SyncInterval.Value;
 
     private static void ConnectBugle(BugleSFX bugle)
     {
@@ -57,7 +57,7 @@ internal class BugleSync: MonoBehaviourPun
 
         var viewID = photonView.ViewID;
         var state = LoadState(viewID);
-        state.SendTimer += Time.deltaTime;
+        state.Age += Time.deltaTime;
 
         // Discard state of inactive bugle
         if (!TryGetComponent<BugleSFX>(out var bugle) || !bugle.hold || !bugle.buglePlayer)
@@ -76,17 +76,17 @@ internal class BugleSync: MonoBehaviourPun
         BuglePartial.Smooth(Time.deltaTime);
 
         var frame = new BuglePitchFrame();
-        var withinSendInterval = state.SendTimer < SendInterval;
+        var withinSyncInterval = state.Age < SyncInterval;
         var pitchUnchanged = frame.Approximately(state.Frame);
 
         state.Frame = frame;
 
-        if (withinSendInterval && pitchUnchanged) return;
+        if (withinSyncInterval && pitchUnchanged) return;
 
         photonView.RPC(nameof(RPC_SyncBuglePitchFrame), RpcTarget.Others, viewID, frame.Data);
         Plugin.Log.LogDebug($"Sent frame sync from view {viewID}");
 
-        state.SendTimer = 0f;
+        state.Age = 0f;
     }
 
     [PunRPC]
