@@ -20,7 +20,7 @@ internal static class BugleSFX_Patch
         // Patch in custom sound
         audioSource.clip = BugleClip.Brass();
         // audioSource.pitch = new BuglePitchFrame(__instance).Pitch; // TODO Do I actually need this?
-        audioSource.loop = true;
+        audioSource.loop = true; // TODO Synthesis without looping, involves updated sync behaviour
         audioSource.volume = 0f;
         audioSource.Play();
 
