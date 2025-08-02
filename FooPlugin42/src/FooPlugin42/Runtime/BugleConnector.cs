@@ -1,4 +1,5 @@
 using System.Collections;
+using FooPlugin42.Config;
 using FooPlugin42.Networking;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace FooPlugin42.Runtime;
 
 internal class BugleConnector : MonoBehaviour
 {
-    private const float PollInterval = 1f;
+    private static float PollInterval => BugleConfig.ConnectInterval.Value;
 
     private void OnEnable() => StartCoroutine(MaintainConnection());
 

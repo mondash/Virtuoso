@@ -1,11 +1,12 @@
+using FooPlugin42.Config;
 using UnityEngine;
 
 namespace FooPlugin42.Input;
 
 public static class BugleBend
 {
-    private const float MaxAngle = 90f;
-    private const float MaxSemitones = 2f;
+    private static float MaxAngle => BugleConfig.MaxBendAngle.Value;
+    private static float MaxSemitones => BugleConfig.MaxBendSemitones.Value;
     private static float? _initialAngle;
 
     private static float CurrentAngle =>

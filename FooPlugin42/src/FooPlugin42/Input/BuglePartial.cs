@@ -1,11 +1,12 @@
+using FooPlugin42.Config;
 using UnityEngine;
 
 namespace FooPlugin42.Input;
 
 internal static class BuglePartial
 {
-    private const bool Ideal = false; // TODO Make configurable
-    public const float MaxAngle = 90f;
+    public static float MaxAngle => BugleConfig.MaxPartialAngle.Value;
+    private static bool Ideal => BugleConfig.UseIdealHarmonics.Value;
     private const float SmoothStrength = 32f;
     private static readonly float[] RealisticHarmonics =
     [

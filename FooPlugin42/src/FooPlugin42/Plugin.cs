@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using FooPlugin42.Config;
 using FooPlugin42.Runtime;
 using HarmonyLib;
 
@@ -18,6 +19,8 @@ public partial class Plugin : BaseUnityPlugin
     {
         Log = Logger;
         Log.LogInfo("Plugin waking...");
+        Log.LogDebug("Loading configuration...");
+        BugleConfig.Bind(Config);
         Log.LogDebug("Applying harmony patches...");
         (_harmony = new Harmony(Info.Metadata.GUID)).PatchAll();
         Log.LogDebug("Adding runtime components...");

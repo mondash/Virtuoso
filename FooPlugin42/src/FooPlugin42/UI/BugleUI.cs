@@ -37,7 +37,7 @@ internal class BugleUI : MonoBehaviour
         if (!cam) return;
 
         const float lineLength = 20f;
-        const float maxAngle = BuglePartial.MaxAngle;
+        var maxAngle = BuglePartial.MaxAngle;
         var partials = BuglePartial.Partials;
         var divisions = partials - 1;
 

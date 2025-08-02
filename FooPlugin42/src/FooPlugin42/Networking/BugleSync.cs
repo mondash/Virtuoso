@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FooPlugin42.Config;
 using FooPlugin42.Data;
 using FooPlugin42.Input;
 using Photon.Pun;
@@ -18,7 +19,7 @@ internal class BugleSyncState
 internal class BugleSync: MonoBehaviourPun
 {
     private static readonly Dictionary<int, BugleSyncState> States = new();
-    private const float SendInterval = 0.1f; // TODO Determine good default and maybe make configurable
+    private static float SendInterval => BugleConfig.SyncInterval.Value;
 
     private static void ConnectBugle(BugleSFX bugle)
     {
