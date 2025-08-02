@@ -16,8 +16,8 @@ internal static class BugleClip
 
         const int cycles = 10;
         const int sampleRate = 44100;
-        var duration = cycles / Frequency;
-        var sampleCount = (int)(sampleRate * duration);
+        const float duration = cycles / Frequency;
+        const int sampleCount = (int)(sampleRate * duration);
         var samples = new float[sampleCount];
 
         for (var i = 0; i < sampleCount; i++)
