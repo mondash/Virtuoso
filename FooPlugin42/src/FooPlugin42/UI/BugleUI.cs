@@ -1,3 +1,4 @@
+using FooPlugin42.Config;
 using FooPlugin42.Input;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace FooPlugin42.UI;
 internal class BugleUI : MonoBehaviour
 {
     private static BugleUI? _instance;
+    private static bool _visible = true;
+    private static KeyCode ToggleUIKey => BugleConfig.ToggleUIKey.Value;
 
     public static void Initialize(GameObject gameObject)
     {
@@ -24,8 +27,15 @@ internal class BugleUI : MonoBehaviour
         Plugin.Log.LogInfo("BugleUI destroyed");
     }
 
+    private void Update()
+    {
+        if (UnityEngine.Input.GetKeyDown(ToggleUIKey)) _visible = !_visible;
+    }
+
     private void OnGUI()
     {
+        if (!_visible) return;
+
         var character = Character.localCharacter;
         if (!character) return;
 

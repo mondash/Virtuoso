@@ -9,7 +9,7 @@ internal static class BugleConfig
     public static ConfigEntry<float> ConnectInterval = null!;
 
     public static ConfigEntry<float> UILoadInterval = null!;
-    public static ConfigEntry<KeyboardShortcut> ToggleUIKey = null!;
+    public static ConfigEntry<KeyCode> ToggleUIKey = null!;
 
     public static ConfigEntry<float> MaxBendAngle = null!;
     public static ConfigEntry<float> MaxBendSemitones = null!;
@@ -46,7 +46,7 @@ internal static class BugleConfig
         ToggleUIKey = config.Bind(
             "UI",
             "ToggleUIKey",
-            new KeyboardShortcut(KeyCode.V),
+            KeyCode.V,
             "Keyboard shortcut to toggle the bugle UI visibility"
         );
 
