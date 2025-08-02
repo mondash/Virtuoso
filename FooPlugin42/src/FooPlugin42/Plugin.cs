@@ -6,6 +6,7 @@ using HarmonyLib;
 namespace FooPlugin42;
 
 // TODO Does this handle multiple local bugles?
+// TODO Should I try/catch anything anywhere?
 
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
@@ -16,7 +17,7 @@ public partial class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Log = Logger;
-        Log.LogDebug("Plugin waking...");
+        Log.LogInfo("Plugin waking...");
         Log.LogDebug("Applying harmony patches...");
         (_harmony = new Harmony(Info.Metadata.GUID)).PatchAll();
         Log.LogDebug("Adding runtime components...");
@@ -27,7 +28,7 @@ public partial class Plugin : BaseUnityPlugin
 
     private void OnDestroy()
     {
-        Log.LogDebug("Plugin destroying...");
+        Log.LogInfo("Plugin destroying...");
         Log.LogDebug("Removing harmony patches...");
         _harmony?.UnpatchSelf();
         Log.LogInfo("Plugin destroyed!");
