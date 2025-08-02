@@ -74,8 +74,9 @@ internal class BugleUI : MonoBehaviour
             // Perspective projection onto screen Y
             var normalizedY = 0.5f - Mathf.Tan(angleDiffRad) / Mathf.Tan(halfFovRad);
             var screenY = normalizedY * screenHeight;
+            var screenX = (screenWidth - lineLength) * 0.5f;
 
-            DrawLine(screenWidth * 0.5f, screenY, lineLength);
+            DrawLine(screenX, screenY, lineLength);
         }
     }
 
