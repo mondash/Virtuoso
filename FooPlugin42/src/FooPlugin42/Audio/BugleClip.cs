@@ -4,10 +4,11 @@ namespace FooPlugin42.Audio;
 
 internal static class BugleClip
 {
+    // TODO Configurable fundamental frequency
+    private const float Frequency = 58.27f; // Bb1
     private static AudioClip? _clip;
 
-    // TODO Configurable fundamental frequency
-    public static AudioClip Brass(float frequency = 58.27f /* Bb1 */)
+    public static AudioClip Brass()
     {
         if (_clip) return _clip;
 
@@ -15,13 +16,13 @@ internal static class BugleClip
 
         const int cycles = 10;
         const int sampleRate = 44100;
-        var duration = cycles / frequency;
+        var duration = cycles / Frequency;
         var sampleCount = (int)(sampleRate * duration);
         var samples = new float[sampleCount];
 
         for (var i = 0; i < sampleCount; i++)
         {
-            var t = 2 * Mathf.PI * frequency * i / sampleRate;
+            var t = 2 * Mathf.PI * Frequency * i / sampleRate;
             var buzz = (
                 Mathf.Sin(t)
                 + 0.70f * Mathf.Sin(2*t)
