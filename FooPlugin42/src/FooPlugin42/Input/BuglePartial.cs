@@ -42,8 +42,8 @@ internal static class BuglePartial
 
     public static float Semitones()
     {
-        if (!_smoothAngle.HasValue) return Harmonics[0];
-        var normalized = Mathf.InverseLerp(-MaxAngle, MaxAngle, _smoothAngle.Value);
+        var angle = _smoothAngle ?? CurrentAngle;
+        var normalized = Mathf.InverseLerp(-MaxAngle, MaxAngle, angle);
         var scaled = Mathf.FloorToInt(normalized * Partials);
         // TODO Do I need this clamp? InverseLerp should return [0,1] so should double check
         var index = Mathf.Clamp(scaled, 0, Partials - 1);
