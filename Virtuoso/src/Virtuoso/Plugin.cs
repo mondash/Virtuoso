@@ -6,7 +6,6 @@ using Virtuoso.Runtime;
 
 namespace Virtuoso;
 
-// TODO Name: Virtuoso?
 // TODO Should I try/catch anything anywhere?
 
 [BepInAutoPlugin]
