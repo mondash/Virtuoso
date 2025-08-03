@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D07CA91F-1725-4CA3-A967-EF3EFEF61839}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FooPlugin42", "src\FooPlugin42\FooPlugin42.csproj", "{B6C57BF7-8E11-48D9-BC0D-E1BB94925FD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtuoso", "src\Virtuoso\Virtuoso.csproj", "{B6C57BF7-8E11-48D9-BC0D-E1BB94925FD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

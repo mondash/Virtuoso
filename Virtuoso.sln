@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FooPlugin42", "FooPlugin42\src\FooPlugin42\FooPlugin42.csproj", "{14BC8242-7038-4CAD-9A58-65F4DCD666FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virtuoso", "Virtuoso\src\Virtuoso\Virtuoso.csproj", "{14BC8242-7038-4CAD-9A58-65F4DCD666FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

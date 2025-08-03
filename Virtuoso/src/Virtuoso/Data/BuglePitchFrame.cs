@@ -1,7 +1,7 @@
-using FooPlugin42.Input;
 using UnityEngine;
+using Virtuoso.Input;
 
-namespace FooPlugin42.Data;
+namespace Virtuoso.Data;
 
 internal readonly struct BuglePitchFrame(float valves, float partial, float bend)
 {

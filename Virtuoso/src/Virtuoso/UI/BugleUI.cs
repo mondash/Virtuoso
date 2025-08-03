@@ -1,8 +1,8 @@
-using FooPlugin42.Config;
-using FooPlugin42.Input;
 using UnityEngine;
+using Virtuoso.Config;
+using Virtuoso.Input;
 
-namespace FooPlugin42.UI;
+namespace Virtuoso.UI;
 
 // TODO Leave guide lines at initial bend horizontal?
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FooPlugin42.UI;
+namespace Virtuoso.UI;
 
 internal class BugleNote
 {

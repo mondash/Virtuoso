@@ -1,7 +1,7 @@
-using FooPlugin42.Config;
 using UnityEngine;
+using Virtuoso.Config;
 
-namespace FooPlugin42.Input;
+namespace Virtuoso.Input;
 
 internal static class BuglePartial
 {

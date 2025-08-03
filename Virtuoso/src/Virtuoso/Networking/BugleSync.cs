@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using FooPlugin42.Config;
-using FooPlugin42.Data;
-using FooPlugin42.Input;
 using Photon.Pun;
 using UnityEngine;
+using Virtuoso.Config;
+using Virtuoso.Data;
+using Virtuoso.Input;
 
 // TODO Might update this namespace
 // Not *exactly* just networking
-namespace FooPlugin42.Networking;
+namespace Virtuoso.Networking;
 
 internal class BugleSyncState
 {

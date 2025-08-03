@@ -1,7 +1,7 @@
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace FooPlugin42.Config;
+namespace Virtuoso.Config;
 
 internal static class BugleConfig
 {

@@ -1,9 +1,9 @@
 using System.Collections;
-using FooPlugin42.Config;
-using FooPlugin42.UI;
 using UnityEngine;
+using Virtuoso.Config;
+using Virtuoso.UI;
 
-namespace FooPlugin42.Runtime;
+namespace Virtuoso.Runtime;
 
 internal class BugleUILoader : MonoBehaviour
 {

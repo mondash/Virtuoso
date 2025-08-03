@@ -1,9 +1,9 @@
 using System.Collections;
-using FooPlugin42.Config;
-using FooPlugin42.Networking;
 using UnityEngine;
+using Virtuoso.Config;
+using Virtuoso.Networking;
 
-namespace FooPlugin42.Runtime;
+namespace Virtuoso.Runtime;
 
 internal class BugleConnector : MonoBehaviour
 {

@@ -6,9 +6,9 @@ repository = "https://thunderstore.io"
 
 [package]
 namespace = "mondash"
-name = "FooPlugin42"
-description = "TODO: Fill in short mod description."
-websiteUrl = "" # TODO: Add a link to your mod repository here (optional)
+name = "Virtuoso"
+description = "Discover your inner virtuoso with this total bugle overhaul"
+websiteUrl = "https://github.com/mondash/Virtuoso"
 containsNsfwContent = false
 
 [package.dependencies]
@@ -20,7 +20,7 @@ readme = "../../README.md"
 outdir = "../../artifacts/thunderstore/"
 
 [[build.copy]]
-source = "../../artifacts/bin/FooPlugin42/release/com.github.mondash.fooplugin42.dll"
+source = "../../artifacts/bin/Virtuoso/release/com.github.mondash.Virtuoso.dll"
 target = "plugins/"
 
 [[build.copy]]
@@ -41,4 +41,4 @@ communities = [ "peak", ]
 [publish.categories]
 # See categories at:
 # https://thunderstore.io/api/experimental/community/peak/category/
-peak = [ "mods", ]
+peak = [ "mods", "audio"]

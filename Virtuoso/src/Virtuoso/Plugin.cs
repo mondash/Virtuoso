@@ -1,12 +1,12 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
-using FooPlugin42.Config;
-using FooPlugin42.Runtime;
 using HarmonyLib;
+using Virtuoso.Config;
+using Virtuoso.Runtime;
 
-namespace FooPlugin42;
+namespace Virtuoso;
 
-// TODO Does this handle multiple local bugles?
+// TODO Name: Virtuoso?
 // TODO Should I try/catch anything anywhere?
 
 [BepInAutoPlugin]

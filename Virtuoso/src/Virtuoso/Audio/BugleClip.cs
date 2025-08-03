@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FooPlugin42.Audio;
+namespace Virtuoso.Audio;
 
 internal static class BugleClip
 {
