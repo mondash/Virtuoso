@@ -63,13 +63,13 @@ Install via [Thunderstore][thunderstore] using your favorite mod manager, or ext
 
 ## ❓ FAQ
 
-**Q: Can I play real songs with this?**
+**Q: Can I play real songs with this?**  
 A: Yes! *Virtuoso* emulates real bugle and trumpet playing. Check out [How It Works](#-how-it-works) to learn more.
 
-**Q: Do other players hear what I'm playing?**
+**Q: Do other players hear what I'm playing?**  
 A: Yes! For other players with the mod, pitch and expression are fully synchronized across the network using a custom *Photon* integration.
 
-**Q: Can I form a band with my buddies?**
+**Q: Can I form a band with my buddies?**  
 A: You can! Each player can grab a bugle and jam in perfect sync. Just note: only **one bugle spawns on the island** (for now), so you’ll have to pass the horn around. More spawns are planned in a future update.
 
 ---
