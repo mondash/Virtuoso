@@ -58,11 +58,10 @@ A: Yes! *Virtuoso* emulates real bugle and trumpet playing. Check out [How It Wo
 A: Yes! For other players with the mod, pitch and expression are fully synchronized across the network using a custom *Photon* integration.
 
 **Q: Can I form a band with my buddies?**  
-A: You can! Each player can grab a bugle and jam in perfect sync. Just note: only **one bugle spawns on the island** (for now), so you’ll have to pass the horn around. More spawns are planned in a future update.
+A: You can! Each player can grab a bugle and jam in perfect sync. Try out [*PocketBugle*][pocket] for an easy way to get started — spawn your own bugle anytime and start tooting together.
 
 ## 📌 Planned Features
 
-- 📦 Additional bugle spawns
 - 🎨 Custom trumpet model
 - 🔊 Multiple brass tones
 - ⚙️ More configuration options
@@ -85,6 +84,7 @@ Enjoy your performance, virtuoso. 📯
 
 [discord]: https://discord.gg/SAw86z24rB
 [github]: https://github.com/mondash/Virtuoso
+[pocket]: https://thunderstore.io/c/peak/p/mondash/PocketBugle/
 [thunderstore]: https://thunderstore.io/c/peak/
 [trumpet-chart]: https://musicalinstrumentguide.com/trumpet-fingering-chart/
 [video-thumbnail]: https://img.youtube.com/vi/wFdlC60iaPE/0.jpg
