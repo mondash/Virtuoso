@@ -100,6 +100,7 @@ Have feedback, questions, or found a bug? Open an issue on [GitHub][github]. I'd
 ---
 
 Download the mod on [Thunderstore][thunderstore] or check out the code behind it on [GitHub][github].
+
 Enjoy your performance, virtuoso. 📯
 
 [discord]: https://discord.gg/SAw86z24rB
