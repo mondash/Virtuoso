@@ -78,6 +78,8 @@ Have feedback, questions, or found a bug? Open an issue on [GitHub][github]. I'd
 - 🪚 Built with **BepInEx**, **Harmony**, **Photon**, and **Unity**
 - 💖 Special thanks to the [PEAK Modding Community][discord] for advice, testing, and moral support
 
+---
+
 Download the mod on [Thunderstore][thunderstore] or check out the code behind it on [GitHub][github].
 
 Enjoy your performance, virtuoso. 📯
