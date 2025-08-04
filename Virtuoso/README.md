@@ -6,8 +6,6 @@
 
 🎬 Click the image link above to watch the promo video!
 
----
-
 ## 📚 Table of Contents
 
 - [🚀 Features](#-features)
@@ -19,8 +17,6 @@
 - [💬 Feedback / Issues](#-feedback--issues)
 - [🎖️ Credits](#-credits)
 
----
-
 ## 🚀 Features
 
 - 🎶 **Dynamic pitch control** based on your character’s view angle
@@ -29,8 +25,6 @@
 - 🌐 **Multiplayer support** allows every note you play to be heard exactly as intended
 - 📈 Real-time **harmonic guide** overlay for performance and learning
 - 📡 Smooth **network sync** using *Photon*, with minimal bandwidth usage
-
----
 
 ## 🔧 How It Works
 
@@ -45,21 +39,15 @@
 
 Want to study the basics or see real trumpet fingerings? Check out this [Trumpet Fingering Chart & Guide][trumpet-chart].
 
----
-
 ## 🔗 Compatibility
 
 - Requires **PEAK**
 - Works in **multiplayer** when all players have the mod
 - Compatible with other audio mods unless they override bugle audio behavior directly
 
----
-
 ## 🛠️ Installation
 
 Install via [Thunderstore][thunderstore] using your favorite mod manager, or extract the plugin manually into your game's `BepInEx/plugins` folder.
-
----
 
 ## ❓ FAQ
 
@@ -72,8 +60,6 @@ A: Yes! For other players with the mod, pitch and expression are fully synchroni
 **Q: Can I form a band with my buddies?**  
 A: You can! Each player can grab a bugle and jam in perfect sync. Just note: only **one bugle spawns on the island** (for now), so you’ll have to pass the horn around. More spawns are planned in a future update.
 
----
-
 ## 📌 Planned Features
 
 - 📦 Additional bugle spawns
@@ -83,21 +69,15 @@ A: You can! Each player can grab a bugle and jam in perfect sync. Just note: onl
 - 🎛️ UI overhaul
 - ✨ Additional sound expression
 
----
-
 ## 💬 Feedback / Issues
 
 Have feedback, questions, or found a bug? Open an issue on [GitHub][github]. I'd love to hear your ideas!
-
----
 
 ## 🎖️ Credits
 
 - 🦐 Developed, with love, by your local shrimp guy **Matthew Ondash**
 - 🪚 Built with **BepInEx**, **Harmony**, **Photon**, and **Unity**
 - 💖 Special thanks to the [PEAK Modding Community][discord] for advice, testing, and moral support
-
----
 
 Download the mod on [Thunderstore][thunderstore] or check out the code behind it on [GitHub][github].
 
