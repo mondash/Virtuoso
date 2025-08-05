@@ -14,7 +14,8 @@ internal static class BugleSFX_Patch
     [HarmonyPostfix]
     private static void RPC_StartToot_Postfix(BugleSFX __instance, int clip)
     {
-        BugleBend.SetInitialAngle();
+        if (__instance.photonView.IsMine) BugleBend.SetInitialAngle();
+
         BugleSync.Connect(__instance);
 
         var audioSource = __instance.buglePlayer;

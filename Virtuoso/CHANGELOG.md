@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.2] - 2025-08-05
+
+### Fixed
+
+- Initial bend position now properly resets only when your own bugle starts tooting
+
 ## [0.2.1] - 2025-08-05
 
 ### Changed
