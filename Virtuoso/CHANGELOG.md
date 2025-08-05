@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Volume no longer immediately resets to zero at the start of a toot
 - Connects sync on first toot instead of via polling
 - Slightly increased vertical angle smoothing for selecting partials
 

@@ -24,7 +24,6 @@ internal static class BugleSFX_Patch
         audioSource.clip = BugleClip.Pinched();
         // audioSource.pitch = new BuglePitchFrame(__instance).Pitch; // TODO Do I actually need this?
         audioSource.loop = true; // TODO Synthesis without looping, involves updated sync behaviour
-        audioSource.volume = 0f;
         audioSource.Play();
 
         // Mark sound as already playing so it's not overwritten in Update
