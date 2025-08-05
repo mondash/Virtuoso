@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 using UnityEngine;
@@ -10,83 +9,58 @@ using Virtuoso.Input;
 // Not *exactly* just networking
 namespace Virtuoso.Networking;
 
-internal class BugleSyncState
-{
-    public BuglePitchFrame Frame;
-    public float Age;
-}
-
 internal class BugleSync: MonoBehaviourPun
 {
-    private static readonly Dictionary<int, BugleSyncState> States = new();
+    private float _timeSinceSync;
+    private BuglePitchFrame _frame;
+
     private static float SyncInterval => BugleConfig.SyncInterval.Value;
 
-    private static void ConnectBugle(BugleSFX bugle)
-    {
-        if (bugle.TryGetComponent<BugleSync>(out _)) return;
-        bugle.gameObject.AddComponent<BugleSync>();
-        var viewID = bugle.photonView.ViewID;
-        Plugin.Log.LogInfo($"Connected bugle sync for view {viewID}");
-    }
+    private void OnEnable() => Plugin.Log.LogInfo($"Enabled bugle sync for view {photonView.ViewID}");
 
-    private static void DisconnectBugle(BugleSFX bugle)
-    {
-        if (!bugle.TryGetComponent<BugleSync>(out var bugleSync)) return;
-        Destroy(bugleSync);
-        var viewID = bugle.photonView.ViewID;
-        States.Remove(viewID);
-        Plugin.Log.LogInfo($"Disconnected bugle sync for view {viewID}");
-    }
+    private void OnDisable() => Plugin.Log.LogInfo($"Disabled bugle sync for view {photonView.ViewID}");
 
-    public static void Connect() =>
-        FindObjectsByType<BugleSFX>(FindObjectsSortMode.None)
-            .ToList().ForEach(ConnectBugle);
+    public static BugleSync Connect(BugleSFX bugle) =>
+        bugle.TryGetComponent<BugleSync>(out var sync)
+            ? sync
+            : bugle.gameObject.AddComponent<BugleSync>();
 
-    public static void Disconnect() =>
-        FindObjectsByType<BugleSFX>(FindObjectsSortMode.None)
-            .ToList().ForEach(DisconnectBugle);
-
-    private static BugleSyncState LoadState(int viewID) =>
-        States.TryGetValue(viewID, out var state)
-            ? state
-            : States[viewID] = new BugleSyncState();
+    public static void DisconnectAll() =>
+        FindObjectsByType<BugleSync>(FindObjectsSortMode.None)
+            .ToList()
+            .ForEach(Destroy);
 
     private void Update()
     {
         if (Time.timeScale == 0f) return; // TODO Should I include this here (or anywhere)?
 
-        var viewID = photonView.ViewID;
-        var state = LoadState(viewID);
-        state.Age += Time.deltaTime;
+        _timeSinceSync += Time.deltaTime;
 
-        // Discard state of inactive bugle
-        if (!TryGetComponent<BugleSFX>(out var bugle) || !bugle.hold || !bugle.buglePlayer)
-        {
-            States.Remove(viewID);
-            return;
-        }
+        if (!TryGetComponent<BugleSFX>(out var bugle)) return;
+        if (!bugle.hold || !bugle.buglePlayer) return;
 
         // TODO Move this into BugleSFX Update Postfix?
         // TODO Smoothing isn't working properly on remote update
-        bugle.buglePlayer.pitch = state.Frame.Pitch;
-        // bugle.buglePlayer.pitch = state.Frame.Smooth(bugle.buglePlayer.pitch, Time.deltaTime);
+        bugle.buglePlayer.pitch = _frame.Pitch;
+        // bugle.buglePlayer.pitch = _frame.Smooth(bugle.buglePlayer.pitch, _timeSinceSync);
 
         if (!photonView.IsMine) return;
 
         BuglePartial.Smooth(Time.deltaTime);
 
         var frame = new BuglePitchFrame();
-        var withinSyncInterval = state.Age < SyncInterval;
-        var pitchUnchanged = frame.Approximately(state.Frame);
+        var withinSyncInterval = _timeSinceSync < SyncInterval;
+        var pitchUnchanged = frame.Approximately(_frame);
 
-        state.Frame = frame;
+        _frame = frame;
 
         if (withinSyncInterval && pitchUnchanged) return;
 
+        var viewID = photonView.ViewID;
         photonView.RPC(nameof(RPC_SyncBuglePitchFrame), RpcTarget.Others, viewID, frame.Data);
         Plugin.Log.LogDebug($"Sent frame sync from view {viewID}");
 
-        state.Age = 0f;
+        _timeSinceSync = 0f;
     }
 
     [PunRPC]
@@ -97,6 +71,6 @@ internal class BugleSync: MonoBehaviourPun
         if (!view || view.IsMine) return;
 
         Plugin.Log.LogDebug($"Applying frame sync from view {viewID}");
-        LoadState(viewID).Frame = new BuglePitchFrame(data);
+        _frame = new BuglePitchFrame(data);
     }
 }

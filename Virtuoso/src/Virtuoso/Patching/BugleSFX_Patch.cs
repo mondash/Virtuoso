@@ -2,6 +2,7 @@ using System.Reflection;
 using HarmonyLib;
 using Virtuoso.Audio;
 using Virtuoso.Input;
+using Virtuoso.Networking;
 
 namespace Virtuoso.Patching;
 
@@ -13,6 +14,7 @@ internal static class BugleSFX_Patch
     private static void RPC_StartToot_Postfix(BugleSFX __instance, int clip)
     {
         BugleBend.SetInitialAngle();
+        BugleSync.Connect(__instance);
 
         var audioSource = __instance.buglePlayer;
         if (!audioSource) return;

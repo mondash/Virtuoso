@@ -6,7 +6,6 @@ namespace Virtuoso.Config;
 internal static class BugleConfig
 {
     public static ConfigEntry<float> SyncInterval = null!;
-    public static ConfigEntry<float> ConnectInterval = null!;
 
     public static ConfigEntry<float> UILoadInterval = null!;
     public static ConfigEntry<KeyCode> ToggleUIKey = null!;
@@ -29,12 +28,6 @@ internal static class BugleConfig
             "SyncInterval",
             0.1f,
             "Time (in seconds) between bugle sync frames"
-        );
-        ConnectInterval = config.Bind(
-            "Sync",
-            "ConnectInterval",
-            1.0f,
-            "Interval (in seconds) between bugle connection attempts"
         );
 
         UILoadInterval = config.Bind(

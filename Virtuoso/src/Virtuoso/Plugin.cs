@@ -2,6 +2,7 @@
 using BepInEx.Logging;
 using HarmonyLib;
 using Virtuoso.Config;
+using Virtuoso.Networking;
 using Virtuoso.Runtime;
 
 namespace Virtuoso;
@@ -23,7 +24,6 @@ public partial class Plugin : BaseUnityPlugin
         Log.LogDebug("Applying harmony patches...");
         (_harmony = new Harmony(Info.Metadata.GUID)).PatchAll();
         Log.LogDebug("Adding runtime components...");
-        gameObject.AddComponent<BugleConnector>();
         gameObject.AddComponent<BugleUILoader>();
         Log.LogInfo("Plugin awake!");
     }
@@ -31,6 +31,8 @@ public partial class Plugin : BaseUnityPlugin
     private void OnDestroy()
     {
         Log.LogInfo("Plugin destroying...");
+        Log.LogDebug("Disconnecting sync...");
+        BugleSync.DisconnectAll();
         Log.LogDebug("Removing harmony patches...");
         _harmony?.UnpatchSelf();
         Log.LogInfo("Plugin destroyed!");
