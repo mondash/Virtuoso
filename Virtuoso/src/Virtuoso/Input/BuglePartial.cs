@@ -7,7 +7,7 @@ internal static class BuglePartial
 {
     public static float MaxAngle => BugleConfig.MaxPartialAngle.Value;
     private static bool Ideal => BugleConfig.UseIdealHarmonics.Value;
-    private const float SmoothStrength = 8f;
+    private const float SmoothStrength = 32f;
     private static readonly float[] RealisticHarmonics =
     [
         // 0.00f, // Fundamental // TODO Undo?

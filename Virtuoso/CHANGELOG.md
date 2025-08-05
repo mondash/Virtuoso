@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1] - 2025-08-05
+
+### Changed
+
+- Reverted vertical angle smoothing to previous value
+
+### Removed
+
+- Disabled pitch smoothing
+
 ## [0.2.0] - 2025-08-05
 
 ### Added

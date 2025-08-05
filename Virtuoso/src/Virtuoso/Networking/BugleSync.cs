@@ -39,7 +39,9 @@ internal class BugleSync: MonoBehaviourPun
         if (!bugle.hold || !bugle.buglePlayer) return;
 
         // TODO Move this into BugleSFX Update Postfix?
-        bugle.buglePlayer.pitch = _frame.Smooth(bugle.buglePlayer.pitch, _timeSinceSync);
+        // TODO Actually fix smoothing
+        // bugle.buglePlayer.pitch = _frame.Smooth(bugle.buglePlayer.pitch, _timeSinceSync);
+        bugle.buglePlayer.pitch = _frame.Pitch;
 
         if (!photonView.IsMine) return;
 
