@@ -69,5 +69,6 @@ internal class BugleSync: MonoBehaviourPun
 
         Plugin.Log.LogDebug($"Applying frame sync from view {viewID}");
         _frame = new BuglePitchFrame(data);
+        _timeSinceSync = 0f;
     }
 }
