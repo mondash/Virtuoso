@@ -2,6 +2,10 @@
 
 ## Upcoming
 
+### Added
+
+- Slight pitch smoothing
+
 ### Changed
 
 - Volume no longer immediately resets to zero at the start of a toot

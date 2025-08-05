@@ -39,9 +39,7 @@ internal class BugleSync: MonoBehaviourPun
         if (!bugle.hold || !bugle.buglePlayer) return;
 
         // TODO Move this into BugleSFX Update Postfix?
-        // TODO Smoothing isn't working properly on remote update
-        bugle.buglePlayer.pitch = _frame.Pitch;
-        // bugle.buglePlayer.pitch = _frame.Smooth(bugle.buglePlayer.pitch, _timeSinceSync);
+        bugle.buglePlayer.pitch = _frame.Smooth(bugle.buglePlayer.pitch, _timeSinceSync);
 
         if (!photonView.IsMine) return;
 

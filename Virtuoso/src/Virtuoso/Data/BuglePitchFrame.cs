@@ -26,6 +26,6 @@ internal readonly struct BuglePitchFrame(float valves, float partial, float bend
         && Mathf.Approximately(Partial, other.Partial)
         && Mathf.Abs(Bend - other.Bend) < bendThreshold;
 
-    public float Smooth(float initial, float delta, float speed = 64f) =>
+    public float Smooth(float initial, float delta, float speed = 0.5f) =>
         Mathf.Lerp(initial, Pitch, delta * speed);
 }
