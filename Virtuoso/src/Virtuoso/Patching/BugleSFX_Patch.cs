@@ -38,7 +38,7 @@ internal static class BugleSFX_Patch
     [HarmonyPostfix]
     private static void RPC_EndToot_Postfix(BugleSFX __instance)
     {
-        if (!__instance.photonView.IsMine) return; // TODO Paranoid?
+        if (!__instance.photonView.IsMine) return;
         BugleBend.Reset();
         BuglePartial.Reset();
     }
