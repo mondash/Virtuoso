@@ -5,6 +5,7 @@
 ### Changed
 
 - Connects sync on first toot instead of via polling
+- Slightly increased vertical angle smoothing for selecting partials
 
 ### Removed
 
