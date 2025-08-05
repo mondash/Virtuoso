@@ -1,5 +1,6 @@
 using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 using Virtuoso.Audio;
 using Virtuoso.Input;
 using Virtuoso.Networking;
@@ -40,5 +41,13 @@ internal static class BugleSFX_Patch
         if (!__instance.photonView.IsMine) return; // TODO Paranoid?
         BugleBend.Reset();
         BuglePartial.Reset();
+    }
+
+    [HarmonyPatch(nameof(BugleSFX.Update))]
+    [HarmonyPostfix]
+    private static void Update_Postfix(BugleSFX __instance)
+    {
+        if (!__instance.photonView.IsMine) return;
+        BuglePartial.Smooth(Time.deltaTime);
     }
 }

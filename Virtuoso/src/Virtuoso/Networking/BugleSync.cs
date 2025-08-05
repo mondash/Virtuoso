@@ -3,7 +3,6 @@ using Photon.Pun;
 using UnityEngine;
 using Virtuoso.Config;
 using Virtuoso.Data;
-using Virtuoso.Input;
 
 // TODO Might update this namespace
 // Not *exactly* just networking
@@ -45,8 +44,6 @@ internal class BugleSync: MonoBehaviourPun
         // bugle.buglePlayer.pitch = _frame.Smooth(bugle.buglePlayer.pitch, _timeSinceSync);
 
         if (!photonView.IsMine) return;
-
-        BuglePartial.Smooth(Time.deltaTime);
 
         var frame = new BuglePitchFrame();
         var withinSyncInterval = _timeSinceSync < SyncInterval;
