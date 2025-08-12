@@ -1,8 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using Virtuoso.Behaviour;
 using Virtuoso.Config;
-using Virtuoso.Networking;
 using Virtuoso.Runtime;
 
 namespace Virtuoso;
@@ -31,8 +31,8 @@ public partial class Plugin : BaseUnityPlugin
     private void OnDestroy()
     {
         Log.LogInfo("Plugin destroying...");
-        Log.LogDebug("Disconnecting sync...");
-        BugleSync.DisconnectAll();
+        Log.LogDebug("Disconnecting custom bugle behaviour...");
+        BugleBehaviour.DisconnectAll();
         Log.LogDebug("Removing harmony patches...");
         _harmony?.UnpatchSelf();
         Log.LogInfo("Plugin destroyed!");

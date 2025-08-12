@@ -15,7 +15,7 @@ internal readonly struct BuglePitchFrame(float valves, float partial, float bend
     public BuglePitchFrame(object[] data) :
         this((float)data[0], (float)data[1], (float)data[2]) { }
 
-    public object[] Data => [Valves, Partial, Bend];
+    public object Data => new object[]{ Valves, Partial, Bend };
 
     public float Semitone => Valves + Partial + Bend;
 
@@ -26,6 +26,6 @@ internal readonly struct BuglePitchFrame(float valves, float partial, float bend
         && Mathf.Approximately(Partial, other.Partial)
         && Mathf.Abs(Bend - other.Bend) < bendThreshold;
 
-    public float Smooth(float initial, float delta, float speed = 0.5f) =>
-        Mathf.Lerp(initial, Pitch, delta * speed);
+    public float Smooth(float current, float delta, float speed = 100f) =>
+        Mathf.MoveTowards(current, Pitch, delta * speed);
 }

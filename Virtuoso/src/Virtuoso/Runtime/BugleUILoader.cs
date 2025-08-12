@@ -7,17 +7,16 @@ namespace Virtuoso.Runtime;
 
 internal class BugleUILoader : MonoBehaviour
 {
-    private static float PollInterval => BugleConfig.UILoadInterval.Value;
-
     private void OnEnable() => StartCoroutine(LoadUI());
 
     private void OnDisable() => BugleUI.DestroyInstance();
 
+    private bool ReadyOrDisabled() => Character.localCharacter || !isActiveAndEnabled;
+
     private IEnumerator LoadUI()
     {
         Plugin.Log.LogInfo("Bugle UI loader routine started");
-        while (isActiveAndEnabled && !Character.localCharacter)
-            yield return new WaitForSeconds(PollInterval);
+        yield return new WaitUntil(ReadyOrDisabled);
 
         if (isActiveAndEnabled) BugleUI.Initialize(gameObject);
         Plugin.Log.LogInfo("Bugle UI loader routine finished");

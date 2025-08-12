@@ -5,9 +5,10 @@ namespace Virtuoso.Input;
 
 internal static class BuglePartial
 {
+    private const float SmoothStrength = 300f;
+    private static float SmoothSpeed => SmoothStrength * BugleConfig.HarmonicSmoothMult.Value;
     public static float MaxAngle => BugleConfig.MaxPartialAngle.Value;
     private static bool Ideal => BugleConfig.UseIdealHarmonics.Value;
-    private const float SmoothStrength = 32f;
     private static readonly float[] RealisticHarmonics =
     [
         // 0.00f, // Fundamental // TODO Undo?
@@ -54,6 +55,6 @@ internal static class BuglePartial
 
     public static void Smooth(float delta) =>
         _smoothAngle = _smoothAngle.HasValue
-            ? Mathf.Lerp(_smoothAngle.Value, CurrentAngle, delta * SmoothStrength)
+            ? Mathf.MoveTowards(_smoothAngle.Value, CurrentAngle, delta * SmoothSpeed)
             : CurrentAngle;
 }
