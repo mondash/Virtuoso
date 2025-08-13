@@ -11,25 +11,25 @@ internal class BugleSync : BugleBehaviour
     private static float SyncInterval => BugleConfig.SyncInterval.Value;
 
     private float _since;
-    private BuglePitchFrame _lastLocal, _lastSent;
+    private BuglePitchFrame _local, _sync;
 
     protected override bool ShouldHandleFrame => base.ShouldHandleFrame && IsMine;
-    protected override void OnFrame(BuglePitchFrame frame) => _lastLocal = frame;
+    protected override void OnFrame(BuglePitchFrame frame) => _local = frame;
 
+    private bool Throttle => _since < SyncInterval && _local.Approximately(_sync);
     protected override bool ShouldUpdate => base.ShouldUpdate && IsMine;
     protected override void OnUpdate()
     {
         _since += Time.deltaTime;
-        var throttle = _since < SyncInterval && _lastSent.Approximately(_lastLocal);
-        if (throttle) return;
-        SyncBuglePitchFrame(_lastLocal);
+        if (Throttle) return;
+        SyncBuglePitchFrame(_local);
     }
 
     private void SyncBuglePitchFrame(BuglePitchFrame frame)
     {
         Sfx.photonView.RPC(nameof(RPC_SyncBuglePitchFrame), RpcTarget.Others, frame.Data);
         Plugin.Log.LogDebug($"Sent frame sync from view {ViewID}");
-        _lastSent = frame;
+        _sync = frame;
         _since = 0f;
     }
 
