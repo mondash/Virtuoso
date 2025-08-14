@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Virtuoso.Config;
 
+// TODO Smart use of modifier keys
+
 internal static class BugleConfig
 {
     public static ConfigEntry<float> MaxBendAngle = null!;
@@ -105,7 +107,7 @@ internal static class BugleConfig
         Valve1Key = config.Bind(
             "Valves",
             "Valve1Key",
-            KeyCode.Z,
+            KeyCode.C,
             "Keyboard key for Valve 1"
         );
         Valve2Key = config.Bind(
@@ -117,7 +119,7 @@ internal static class BugleConfig
         Valve3Key = config.Bind(
             "Valves",
             "Valve3Key",
-            KeyCode.C,
+            KeyCode.Z,
             "Keyboard key for Valve 3"
         );
     }
