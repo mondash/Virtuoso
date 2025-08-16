@@ -5,6 +5,7 @@
 ### Changed
 
 - Swapped default keybinds of `Valve1Key` and `Valve3Key` to align with true finger position
+- Directly sets `t` flag in `BugleSFX` without reflection
 
 ## [0.3.1] - 2025-08-12
 
