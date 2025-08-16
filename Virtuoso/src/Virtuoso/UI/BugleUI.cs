@@ -10,7 +10,6 @@ internal class BugleUI : MonoBehaviour
 {
     private static BugleUI? _instance;
     private static bool _visible = true;
-    private static KeyCode ToggleUIKey => BugleConfig.ToggleUIKey.Value;
 
     public static void Initialize(GameObject gameObject)
     {
@@ -29,7 +28,7 @@ internal class BugleUI : MonoBehaviour
 
     private void Update()
     {
-        if (UnityEngine.Input.GetKeyDown(ToggleUIKey)) _visible = !_visible;
+        if (UnityEngine.Input.GetKeyDown(Settings.ToggleUIKey)) _visible = !_visible;
     }
 
     private static bool IsPaused => GUIManager.instance.pauseMenu.activeSelf;
@@ -49,7 +48,7 @@ internal class BugleUI : MonoBehaviour
         if (!cam) return;
 
         const float lineLength = 20f;
-        var maxAngle = BuglePartial.MaxAngle;
+        var maxAngle = Settings.MaxPartialAngle;
         var partials = BuglePartial.Partials;
         var divisions = partials - 1;
 

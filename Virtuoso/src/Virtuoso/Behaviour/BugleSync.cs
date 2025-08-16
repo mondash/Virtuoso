@@ -8,15 +8,14 @@ namespace Virtuoso.Behaviour;
 [DefaultExecutionOrder(3)]
 internal class BugleSync : BugleBehaviour
 {
-    private static float SyncInterval => BugleConfig.SyncInterval.Value;
-
     private float _since;
     private BuglePitchFrame _local, _sync;
 
     protected override bool ShouldHandleFrame => base.ShouldHandleFrame && IsMine;
     protected override void OnFrame(BuglePitchFrame frame) => _local = frame;
 
-    private bool Throttle => _since < SyncInterval && _local.Approximately(_sync);
+    private bool Throttle =>
+        _since < Settings.SyncInterval && _local.Approximately(_sync);
     protected override bool ShouldUpdate => base.ShouldUpdate && IsMine;
     protected override void OnUpdate()
     {

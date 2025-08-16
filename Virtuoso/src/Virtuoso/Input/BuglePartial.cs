@@ -5,10 +5,6 @@ namespace Virtuoso.Input;
 
 internal static class BuglePartial
 {
-    private const float SmoothStrength = 300f;
-    private static float SmoothSpeed => SmoothStrength * BugleConfig.HarmonicSmoothMult.Value;
-    public static float MaxAngle => BugleConfig.MaxPartialAngle.Value;
-    private static bool Ideal => BugleConfig.UseIdealHarmonics.Value;
     private static readonly float[] RealisticHarmonics =
     [
         // 0.00f, // Fundamental // TODO Undo?
@@ -33,13 +29,17 @@ internal static class BuglePartial
         36f, // +3 octaves (total)
         // TODO Extend range?
     ];
-    private static float? _smoothAngle;
-
-    private static float[] Harmonics => Ideal ? IdealHarmonics : RealisticHarmonics;
+    private static float[] Harmonics =>
+        Settings.UseIdealHarmonics ? IdealHarmonics : RealisticHarmonics;
     public static int Partials => Harmonics.Length;
+
+    private static float SmoothSpeed => 300f * Settings.HarmonicSmoothMult;
+    private static float MaxAngle => Settings.MaxPartialAngle;
 
     private static float CurrentAngle =>
         Character.localCharacter ? Character.localCharacter.data.lookValues.y : 0f;
+
+    private static float? _smoothAngle;
 
     public static float Semitones()
     {

@@ -5,8 +5,6 @@ namespace Virtuoso.Input;
 
 public static class BugleBend
 {
-    private static float MaxAngle => BugleConfig.MaxBendAngle.Value;
-    private static float MaxSemitones => BugleConfig.MaxBendSemitones.Value;
     private static float? _initialAngle;
 
     private static float CurrentAngle =>
@@ -17,8 +15,8 @@ public static class BugleBend
     {
         if (!_initialAngle.HasValue) return 0f;
         var deltaAngle = Mathf.DeltaAngle(_initialAngle.Value, CurrentAngle);
-        var delta = Mathf.Clamp(deltaAngle / MaxAngle, -1f, 1f);
-        return delta * MaxSemitones;
+        var delta = Mathf.Clamp(deltaAngle / Settings.MaxBendAngle, -1f, 1f);
+        return delta * Settings.MaxBendSemitones;
     }
 
     public static void Reset() => _initialAngle = null;

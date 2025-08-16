@@ -20,7 +20,7 @@ public partial class Plugin : BaseUnityPlugin
         Log = Logger;
         Log.LogInfo("Plugin waking...");
         Log.LogDebug("Loading configuration...");
-        BugleConfig.Bind(Config);
+        Settings.Bind(Config);
         Log.LogDebug("Applying harmony patches...");
         (_harmony = new Harmony(Info.Metadata.GUID)).PatchAll();
         Log.LogDebug("Adding runtime components...");

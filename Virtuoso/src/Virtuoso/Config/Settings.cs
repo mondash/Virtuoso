@@ -5,25 +5,25 @@ namespace Virtuoso.Config;
 
 // TODO Smart use of modifier keys
 
-internal static class BugleConfig
+internal static class Settings
 {
-    public static ConfigEntry<float> MaxBendAngle = null!;
-    public static ConfigEntry<float> MaxBendSemitones = null!;
+    public static Setting<float> MaxBendAngle = null!;
+    public static Setting<float> MaxBendSemitones = null!;
 
-    public static ConfigEntry<bool> UseIdealHarmonics = null!;
-    public static ConfigEntry<float> MaxPartialAngle = null!;
+    public static Setting<bool> UseIdealHarmonics = null!;
+    public static Setting<float> MaxPartialAngle = null!;
 
-    public static ConfigEntry<float> HarmonicSmoothMult = null!;
-    public static ConfigEntry<float> PitchSmoothMult = null!;
+    public static Setting<float> HarmonicSmoothMult = null!;
+    public static Setting<float> PitchSmoothMult = null!;
 
-    public static ConfigEntry<float> SyncInterval = null!;
+    public static Setting<float> SyncInterval = null!;
 
-    public static ConfigEntry<KeyCode> ToggleUIKey = null!;
+    public static Setting<KeyCode> ToggleUIKey = null!;
 
-    public static ConfigEntry<bool> UseIdealValves = null!;
-    public static ConfigEntry<KeyCode> Valve1Key = null!;
-    public static ConfigEntry<KeyCode> Valve2Key = null!;
-    public static ConfigEntry<KeyCode> Valve3Key = null!;
+    public static Setting<bool> UseIdealValves = null!;
+    public static Setting<KeyCode> Valve1Key = null!;
+    public static Setting<KeyCode> Valve2Key = null!;
+    public static Setting<KeyCode> Valve3Key = null!;
 
     public static void Bind(ConfigFile config)
     {

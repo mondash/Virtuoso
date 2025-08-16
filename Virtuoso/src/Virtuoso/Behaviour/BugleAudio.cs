@@ -10,8 +10,7 @@ namespace Virtuoso.Behaviour;
 internal class BugleAudio : BugleBehaviour
 {
     private const float VolumeEpsilon = 0.001f; // TODO Necessary?
-    private const float SmoothStrength = 100f;
-    private static float SmoothSpeed => SmoothStrength * BugleConfig.PitchSmoothMult.Value;
+    private static float SmoothSpeed => 100f * Settings.PitchSmoothMult;
 
     private bool _newToot;
     private BuglePitchFrame _frame;

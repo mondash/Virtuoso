@@ -6,10 +6,6 @@ namespace Virtuoso.Input;
 
 internal static class TrumpetValves
 {
-    private static bool Ideal => BugleConfig.UseIdealValves.Value;
-    private static KeyCode Valve1Key => BugleConfig.Valve1Key.Value;
-    private static KeyCode Valve2Key => BugleConfig.Valve2Key.Value;
-    private static KeyCode Valve3Key => BugleConfig.Valve3Key.Value;
     private static readonly Dictionary<int, float> RealisticOffsets = new()
     {
         [0b000] = -0.00f,
@@ -33,14 +29,15 @@ internal static class TrumpetValves
         [0b111] = -6f
     };
 
-    private static Dictionary<int, float> Offsets => Ideal ? IdealOffsets : RealisticOffsets;
+    private static Dictionary<int, float> Offsets =>
+        Settings.UseIdealValves ? IdealOffsets : RealisticOffsets;
 
     public static float Semitones()
     {
         var valves = 0;
-        if (UnityEngine.Input.GetKey(Valve1Key)) valves |= 0b001;
-        if (UnityEngine.Input.GetKey(Valve2Key)) valves |= 0b010;
-        if (UnityEngine.Input.GetKey(Valve3Key)) valves |= 0b100;
+        if (UnityEngine.Input.GetKey(Settings.Valve1Key)) valves |= 0b001;
+        if (UnityEngine.Input.GetKey(Settings.Valve2Key)) valves |= 0b010;
+        if (UnityEngine.Input.GetKey(Settings.Valve3Key)) valves |= 0b100;
         return Offsets.GetValueOrDefault(valves, 0);
     }
 }
