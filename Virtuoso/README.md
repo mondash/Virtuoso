@@ -33,9 +33,9 @@
 - 🎯 Look up or down to choose your pitch — each vertical angle corresponds to a harmonic partial in the brass series. Use default key `V` to toggle the UI.
 - 🎼 Tilt slightly left or right to bend your pitch — perfect for vibrato, glides, and emotional expressiveness.
 - 🎺 Use valve key combinations to simulate trumpet fingering, expanding your playable range. By default:
-  - `Z` for valve 1
+  - `C` for valve 1
   - `X` for valve 2
-  - `C` for valve 3
+  - `Z` for valve 3
 
 Want to study the basics or see real trumpet fingerings? Check out this [Trumpet Fingering Chart & Guide][trumpet-chart].
 
